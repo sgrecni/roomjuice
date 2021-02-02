@@ -1,0 +1,116 @@
+README - Room Juice  ( http://grecni.com/roomjuice/ )
+Written by Steve Grecni aka gid ( gid@REMOVETHISgifpaste.net )
+
+Contents:
+1) Intro
+2) Required Software
+3) Required Hardware
+4) Setup
+5) License
+6) Credits
+
+1. INTRO:
+Room Juice is a multi-user jukebox web application.  So it's basically an 
+mpg321 / madplay / ogg123 / mikmod / xmp / whatever front end.  It's designed
+to be  simple to use and understand, and hopefully, not too difficult to
+install. The main way to listen to the music is locally, but by using a program
+such as darkice and icecast (listed below), you can stream the music to other
+people as well.
+
+I wrote it because all other jukebox programs out at the time seemed
+inadequate in some sense or another, and I wanted something better, something
+that I could improve upon.  Room Juice is developed under linux, but I don't
+see why you couldn't use it on other flavors of unix.  A windows port wouldn't
+be easy because of the code's reliance on command line utilities ( mpg321 /
+mp3info / madplay / ogg123 / ogginfo / mikmod / xmp / locate ).  It's GPL'd
+though, so do what you want with the code.
+
+Basically you hit a web page, browse/search music files, add them to the
+playlist, or remove them.  Hit play, the music starts.  Hit stop, the music
+stops. Hit veto and the current song is stopped, a corny sound effect plays
+(or doesn't if you wish), and music continues on with the next song.
+The fun part is that you can give permissions by IP.  The default is to
+give myself (192.168.1.*) absolute access; control of the music player,
+add, remove songs, and veto.  While the rest of the world has access to
+browse my music and add songs to my playlist. All of this can, of course,
+be configured.
+
+This application is great for multiple people in the same room (or irc channel
+if you want to stream it).  The inspiration basically came from the movie
+"Empire Records" where characters in the movie would play music, and each had
+one veto a day.  Currently everybody has unlimited vetos, mainly because I find
+the limitation of one veto a day annoying.  BTW, if anyone can record me a clean
+sounding Empire Records "siren/scratch" sound effect, please do so! :)
+
+
+2. REQUIRED SOFTWARE:
+- web server, I use apache  - http://www.apache.org/
+- php - http://www.php.net/ ( >= 4.2.0 recommended)
+    - compiled as cgi version (you should have a "php" command)
+       hint, compile php without telling it about your web server, and
+       make sure to compile with --disable-magic-quotes
+    - also interfaced with apache, either as static or a module
+- one or more of the follwing: mpg321 / madplay / ogg123 / mikmod / xmp
+- a web browser to access the app
+- some MP3s, OGGs, or something :)
+
+3. RECOMMENDED SOFTWARE:
+- locate (for search and enqueueing features)
+- mp3info/ogginfo (for extra cool features, deprecated, use taginfo instead)
+- taginfo - http://grecni.com/software/taginfo/
+
+4. REQUIRED HARDWARE:
+- a computer
+- a sound card
+- some good speakers, or some cheapies if you happen to like banging your
+  head against a wall.  I recommend the former.
+- a human being in meatspace to listen, share & enjoy
+
+
+5. SETUP:
+- configuration options are in _config.php, please use the most recent version,
+  as someone likes to change around the format of this file occasionally
+- php-cgi should be installed. (you should have a "php" command)
+- The web user must have read/write access to the "playlists" directory.
+- The web user must also have access to /dev/dsp and /dev/mixer.  After much debate,
+  this was by FAR the cleanest choice which means less code for me to write :)
+- start up a web browser, point it at the roomjuice directory, and visit:
+prefs->check config for errors for further setup and troubleshooting information.
+
+
+6. LICENSE:
+See the LICENSE file.  (GPL v2)
+Most of the images directory is not GPLed.  I borrowed the button design
+as noted in the credits.  I should probably replace the images, but I'm not
+willing to give up pretty for free.  So I'll continue to use these until I
+find acceptable free ones, or until the owner of said files complains.
+
+
+7. CREDITS:
+Software:
+Apache -- http://www.apache.org/
+DarkIce -- http://darkice.sf.net/
+IceCast -- http://icecast.org/
+Linux -- http://www.linux.org/
+MAD (MPEG Audio Decoder) -- http://www.underbit.com/products/mad/
+MikMod -- http://mikmod.org/
+MP3Info -- http://ibiblio.org/mp3info/
+mpg321 -- http://mpg321.sourceforge.net/
+Ogg Vorbis -- http://vorbis.com/
+PHP -- http://www.php.net/
+xmp -- http://xmp.sourceforge.net/
+
+Winamp X v1.0 - By DeeLight -- I borrowed the core button design from
+                               this skin, because I'm just a programmer.  :)
+X11Amp (now xmms) -- Buttons taken and adapted from an old verion for the black
+                     skin.
+Toaster MP3 -- The initial volume control code stolen from this.
+
+Thanks to people who sent me changes or have given me idea:
+(appologies if I've forgotten anyone)
+- Aaron Ward
+- Adam Torgerson
+- Don Rude
+- Richard Lamse
+- RJ Marquette
+- Rob Lensen

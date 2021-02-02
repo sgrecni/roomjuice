@@ -1,0 +1,281 @@
+0.3.5 (2021)
+- _control.php: madplay needs to be stopped with a kill signal of 9 now when 
+  it's paused?  Weird.
+- _search.php, _songinfo.php, check.php, defaultheader.php, display.php, 
+  _shared.php, _playlist.php, playlistmod.php, buttons.php: fixed various php warnings
+- _playlist.php, playlist.php, playlistmod.php:  Added queue manipulation code
+  so you can now move songs up and down in the playlist.   Code from 
+
+0.3.4 (2012-04-02)
+- index.php, themes: added winampbig theme (larger fonts!)
+- prefs.php: ordered directories in theme directory
+- browse.php, display.php, playlistmod.php, prefs.php: fixed XSS vulnerability
+
+0.3.3 (2011-05-06)
+- _config.php:  added m3u files using mpg123--thanks to David Colquhoun for the
+  tip.
+- volume.php: _config.php: fixed volume code when controlling main slider
+- volume.php: check.php, added amixer support
+
+
+0.3.2 (2008-01-20)
+- browse.php:  show file size for images
+- browse.php, defaultheader.php, util.js, playlistmod.php:  fixed handling of
+  directories with single quotes in them, reported by Mark A. Bialik
+- added handheld support (incomplete and unsupported)
+
+
+0.3.1 (2007-02-02)
+- _shared.php:  handle dos carriage returns in _config.php
+- volume.php:  bugfix from Eric Alexander Schiller
+- _control.php:  fixed bug in play() and pause() which could cause an invalid
+  state resulting in no playback until a clear() was issued
+- playlist.php:  convert underscores to spaces when displaying song to browser
+- _songinfo.php:  rewrote song info parsing, it choked on quotes in the data
+
+
+0.3 (2006-07-04)
+- playlist.php, themes:  format songs in playlist frame better, highlight every
+  other song.
+- defaultheader.php: fix for dir_autolink() if directory had parens in it
+- _songinfo.php, display.php:  add support for custom taginfo program (ogg, id3
+  & id3v2 support) see http://grecni.com/software/taginfo/
+- util.js, playlist.php:  dynamic count down timer for remaining time and total
+  time (gracefully falls back on static if javascript is disabled)
+- fixed so we're using all short php tags again.  Thanks to Richard Lamse for
+  the report
+- volume.php:  fixed smixer support, again thanks to Richard Lamse
+- volume.php, _config.php:  added ability to disable the volume
+  text to the right of the slider (Richard Lamse)
+- volume.php, _config.php:  parameterized the which mixer slider gets changed
+- util.js, playlist.php: don't countdown time remaining when paused, fixed
+  countdown display for times > 1 hour
+
+
+0.2.3 (2005-08-05)
+- _config.php: added midi support using timidity
+- _control.php:  fixed matching bug in killall() for midi and sids
+- _playlist.php, playlistmod.php, display.php:  added support for adding a
+  specific song to a playlist
+- defaultheader.php:  fix for dir_autlink() if directory had a bracket in it
+- browse.php:  made display() a bit wider to fit in an 80 column text file
+- display.php:  rtrim() text file data, add our own newline
+
+
+0.2.2 (2005-01-08)
+- check.php: fixed speeling error
+- prefs.php: changed website link to grecni.com/roomjuice
+- defaultheader.php: fixed bug when the DIRMASK didn't have an ending /
+- browse.php: if image shown was resized, make it clickable to open up in a new
+  window
+- browse.php: open images up in a new window when clicked
+
+
+0.2.1 (2004-06-01)
+- browse.php:  fixed image resize code, was looking at width instead of height
+- volume.php:  obey new theme stylesheet
+- queue.php:  call setsid so the queue.php daemon doesn't die if apache dies
+- _flock.php: moved file locking functions to this file
+- _playlist.php:  new playlist class, much cleaner, more flexible
+- _prefs.php:  new prefs class, much cleaner 
+- _control.php: use new playlist and prefs classes
+- _playlist.php, playlistmod.php: clicking add 5 random songs more than once
+  will no longer result in duplicate songs being added
+- _playlistmod.php, playlistmod.php:  if a song is in the playlist twice, the
+  correct song is now removed
+- browse.php: fixed bug when searching and only 1 mp3 directory is configured
+- playlistcontrols.php:  adapt to new _control.php functions
+
+
+0.2.0 (2004-02-15)
+- _config.php, volume.php, check.php: add support for different audio devices
+- browse.php: only resize images that are greater than 300 pixels high
+- defaultheader.php, browse.php:  only show enqueue confirmation if it's going
+  to enqueue at least 20 files or a subdirectory
+- index.php, volume.php:  only root should change volume
+- prefs.php, playlistcontrols.php, playlist.php, defaultheader.php, buttons.php,
+  browse.php, volume.php, theme/*: theme support, images all in the theme
+  directory now
+- defaultheader.php, browse.php, _browse.php: show enqueue directory and add 5
+  random songs links if the root dir isn't a virtual root directory
+
+
+0.1.15 (2003-09-27)
+- _config.php:_shared.php:  made a few things more understandable
+- _config.php, display.php, playlistmod.php: changed the way we get info on
+  files, so now we get info on all music modules
+- volume.php, browse.php: made text browser friendly, from RJ Marquette
+- _config.php, browser.php: display first image in directory, max 300 pixels
+  tall, thanks to RJ Marquette for the initial code and idea
+- did I fix the 5 random songs from the search?  I swear it was broken and I
+  don't remember fixing it
+
+
+0.1.14 (2003-05-02)
+- _browse.php:  fixed a bug if you had only one mp3 directory configured.
+- check.php:  better checking of $PHP variable and included checking of the
+  $MP3DIRS variable
+- _search.php: fixed bug where the search terms weren't showing up
+- browse.php, playlist.php, playlistmod.php:  Don't give invalid referrer
+  errors if accessing via https.
+- _config.php: use mikmod for .mods, and xmp for all other modules
+
+
+0.1.13 (2003-03-21)
+- volume.php: if you have two pcm sound outputs, pick the first one. Thanks go
+  to RJ Marquette for spotting this.
+- defaultheader.php:  moved headers to this file, linking up directory names
+- _shared.php:  now setting HOME environment variable, thanks to Dan Metcalf
+  for the idea.  This should hopefully fix at least some RedHat problems.
+- index.php:  Gave the frames borders under netscape/mozilla so you can resize
+  em.
+- _search.php, _browse.php, browse.php, playlistmod.php: cleanup, adding the
+  capability to enqueue all search results and add 5 random songs from the
+  search results.
+- browse.php, playlistmod.php: now using natcasesort() instead of sort()
+- all files: various cleanup, now using <?php instead of <?
+- _search.php: enqueue 5 random files from dir is now run through rdir() instead
+  of locate.
+- browse.php:  tabled up buttons and form to force the spacing to be more
+  consistent in all browsers.
+- _control.php:  now you can only have one veto in the queue at a time
+
+
+0.1.12 (2003-02-21)
+- playlist.php: fixed bug where time remaining would countdown when the music
+  was paused and the playlist frame is reloaded
+- browse.php: if is_readable() failed, the error was being displayed outside
+  the table, fixed
+- browse.php: fixed table alignment and spacing
+- volume.php: overhauled the aumix and smixer execution code, made it more
+  secure
+- check.php: changed code to detect the new volume config, also checking perms
+  on /dev/mixer
+
+
+0.1.11 (2003-01-07)
+- fixed clear button when music isn't playing
+- _control.php:  abstracted more control functions
+- _control.php:  stop using /bin/killall for wider crossplatform compatibility,
+  now using a custom killall() function in php (using ps, grep, and awk)
+- volume.php:  integrated into main interface, new blue graphics, and smixer
+  support thanks to RJ Marquette
+- volume.php:  tweaked RJ's code a bit, you can now select 0 as a volume and it
+  now shows the current volume level
+- index.php: now able to disable the volume frame
+- check.php: show the program it was looking for
+- check.php: don't show darkice error if icecast is not running
+- queue.php: fixed logic bug if you hit veto while the music was stopped
+
+
+0.1.10 (2002-12-16)
+- wrote generic locking fopen/fclose wrappers
+- switched _prefs.php to use new locking fopen/fclose
+- reworked playlist_write
+- added file locking to playlist_* functions, we can still have a "collision"
+  where one user is queueing up a whole directory, and say the song finishes
+  halfway through, but at least the data returned should not be corrupt
+- play the first file as soon as it's added, don't wait for all of the files
+  to parsed and queued up
+- changed the way queue.php is executed so it never should have to be edited
+  anymore, php location is stored in _config.php now
+- fixed stupid bug in playlist loading
+
+
+0.1.9  (2002-09-18)
+- fixed regex bug in notvalidfd() (any filename with .. in it was failing)
+- quelled stderr from mp3info in _config.php, it was filling up my apache
+  error log
+- added volume.php--thanks to Rob Lensen, code from the Toaster mp3 project
+  (not yet linked into the UI though)
+- add main.css page--thanks again to Rob Lensen
+- tweaked various links, and added mouse over help on various pages
+- changed around HOSTS config var, fixed a potential security problem with
+  host matching logic, root now gets ALL permissions
+- cleaned up look of playlist.php for different permissions
+- renamed listen.pls to listen.php and made dynamic, access it by
+  listen.php/listen.pls (to fool MSIE)  you now no longer have to set your ip
+- ogginfo tweaks (add back in support for pre 1.0 ogginfo)
+
+
+0.1.8  (2002-08-19)
+- added robots nofollow,noindex tag to defaultheader.php... heh, google was
+  randomly playing songs for me :)
+- fixed mozilla deletion issue for filenames with high level chars
+- got rid of ctype dependency, I was using one function once anyway
+- fixed adding of metadata for ogginfo 1.0
+- changed to using preg_match instead of slower eregi (config file regex has
+  changed)
+
+
+0.1.7  (2002-07-14)
+- check if locate is installed in check.php
+- commented buttons.php a little while I still remember how it works
+- unpause the music if play is pressed while paused
+- fixed the randomize function.  who broke that?  couldn't have been me! :)
+- cleaned up randomize function, randomize first song if music isn't playing
+- fixed bugs if you didn't have ogg or mods configured
+
+
+0.1.6  (2002-06-02)
+- wrote check.php to help debug a roomjuice install
+- added time estimation for music modules using xmp -v --load-only
+- added display screen for music modules using xmp -v --load-only
+
+
+0.1.5  (2002-05-24)
+- changed _config.php around, sorry, you'll need to re-edit it
+- changed validfd() to notvalidfd(), it now returns why it's not a valid file
+  or directory for better debugging
+- now displays the IPs that are connected to an icecast server
+- show songinfo screen in main frame, NOT playlist frame
+- added js back button on display.php, combined songinfo.php and display.php
+- fixed notation in humanreadable() to use new IEC standard
+- added music module support via mikmod or xmp 
+- added _state file to store data about the current song and it's format
+- added generic way to add more audio formats
+- added pause button, idea and concept thanks to Adam Torgerson
+- switched from mpg123 to using mpg321, it's free and handles files better
+- try to better deal with a corrupted playlist.m3u
+
+
+0.1.4  (2002-04-27)
+- ability to view text and image files, since some albums might have an nfo
+  file or jpg along with it
+- added songinfo link to entries in the playlist
+- minor fix for php 4.2.0 stat() command (bug or feature?)
+- The search box now ANDs all words together
+- put all the apache icons I'm using in the images dir and fixed the
+  alpha transparency channel
+- added randomly enqueue 5 files from current directory and below feature
+
+
+0.1.3  (2002-03-19)
+- mp3info/ogginfo support, shows stats on files if you have these programs
+- store meta data for songs in playlist in "#EXTINF:time,song name" format
+- display time remaining for current song
+- display total time of songs in playlist
+- set javascript timeout to reload playlist.php after current song is done
+- strip slashes on user entered data, for people who have magic quotes on
+- Using php 4.1.x underscore variable arrays, ala $_REQUEST, so now
+  register_globals can be off (now requires >= php 4.1.2)
+
+
+0.1.2  (2001-12-16)
+- Added ogg vorbis support.
+- Recursive directory enqueue
+- Randomization, thanks to Adam Torgerson
+  (with some tweaks and a bugfix by yours truly)
+- Start playback on addition of a file to an empty playlist
+- Javascript checkall button for mass remove
+- fixed a delete issue
+- Save playlists, initial code by Adam Torgerson
+- Added clear playlist button
+- other minor bug fixes
+
+
+0.1.1  (2001-09-30)
+- Initial version.
+
+(2001-09-01)
+- Started writing Room Juice

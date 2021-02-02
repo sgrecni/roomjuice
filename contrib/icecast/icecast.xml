@@ -1,0 +1,51 @@
+<icecast>
+	<location>Room Juice</location>
+	<admin>person@domain.com</admin>
+
+	<limits>
+		<clients>6</clients>
+		<sources>2</sources>
+		<threadpool>5</threadpool>
+		<client-timeout>30</client-timeout>
+		<header-timeout>15</header-timeout>
+		<source-timeout>10</source-timeout>
+	</limits>
+
+    <authentication>
+		<source-password>thepassword12</source-password>
+		<relay-password>thepassword</relay-password>
+        <admin-user>roomjuice</admin-user>
+        <admin-password>thepassword23</admin-password>
+    </authentication>
+
+	<!--directory>
+		<touch-freq>5</touch-freq>
+		<server>
+			<host>yp.icecast.org</host>
+			<touch-freq>15</touch-freq>
+		</server>
+	</directory-->
+
+	<hostname>localhost</hostname>
+	<port>8000</port>
+
+	<paths>
+			<basedir>/home/icecast</basedir>
+			<logdir>/home/icecast/logs</logdir>
+			<webroot>/home/icecast/web</webroot>
+	</paths>
+
+	<logging>
+		<accesslog>access.log</accesslog>
+		<errorlog>error.log</errorlog>
+		<loglevel>3</loglevel> <!-- 4 Debug, 3 Info, 2 Warn, 1 Error -->
+	</logging>
+
+	<security>
+		<chroot>0</chroot>
+		<changeowner>
+			<user>nobody</user>
+			<group>nogroup</group>
+		</changeowner>
+	</security>
+</icecast>

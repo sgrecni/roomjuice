@@ -1,0 +1,40 @@
+Bugs
+- pause/unpause, check to make sure the song got stopped/started as the process
+could have been killed off by external means
+- refuse to remove song if it's the one playing
+
+
+Features I hope to add someday:
+- add support for playing external music streams from a playlist
+- be able to preset the volume for certain players (mods are quieter)
+- move playlistcontrols.php to the main window?
+- have queue.php log fatal errors, with a potential diagnosis?
+- ability to click open up the containing directory of a file (in search)
+- ability to move files up or down in the playlist
+- voting mode ala Music Queue, have to record who voted somehow, insecure client side
+  cookie, require a php session, or store server side somehow?
+  data format for keeping the song "karma"?
+- get rid of frames and do tables/divs and full "web 2.0" interface
+
+
+Features I probably won't add myself, but might include if someone issues a good
+patch that doesn't add bloat/needless complexity:
+- Use an mp3 player that is controllable, actually issue real commands to
+  so we can fastforward/rewind ala "mpg321 -R" mode.  Look into MPD?
+- interface/wrapper for an existing command line CD ripping program
+
+
+Features that I'm against adding:
+- The capability to read your email.
+- Store cached mp3 data in a database.   I think performance is pretty decent
+  as it is, plus one of the goals of Room Juice is that it be easy to set up,
+  requiring a database would make it increasingly more difficult to set up.
+  If this was added, it would definitely have to be optional or very easy to
+  setup.  Look into SQLite?
+
+
+Features that have been implemented:
+- add song to different favorites lists (from info screen)
+- support id3v2 tags, tried getid3, too slow for many files, no other id3v2
+  readers support fetching the time!?
+

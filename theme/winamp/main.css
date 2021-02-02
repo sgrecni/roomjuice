@@ -1,0 +1,35 @@
+.directoryname {
+    font-family: arial, sans-serif, helvetica;
+    font-size: 17px;
+}
+
+/* used in browse.php and check.php */
+.good { color: green; }
+.bad { color: red; }
+.altertablebgcolor { background-color: #333333; }
+
+A:ACTIVE { text-decoration: none; color: #316598; }
+A:VISITED { text-decoration: none; color: #316598; }
+A:LINK { text-decoration: none; color: #316598; }
+A:HOVER { text-decoration: none; color: #ff0000; }
+
+BODY {
+    background-color: #000000;
+    margin: 0;
+}
+
+BODY, TABLE, TD, P, SELECT, OPTION {
+    color: #808080;
+    font-family: arial, sans-serif, helvetica;
+    font-size: 13px;
+}
+
+INPUT {
+    font-family: arial, sans-serif, helvetica;
+    font-size: 13px;
+    color: #004ab8;
+}
+
+LI {
+    color: #909090;
+}
