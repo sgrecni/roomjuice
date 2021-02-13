@@ -2,9 +2,19 @@
 - _control.php: madplay needs to be stopped with a kill signal of 9 now when 
   it's paused?  Weird.
 - _search.php, _songinfo.php, check.php, defaultheader.php, display.php, 
-  _shared.php, _playlist.php, playlistmod.php, buttons.php: fixed various php warnings
+  _shared.php, _playlist.php, playlistmod.php, buttons.php: fixed various php
+  warnings
+- playlistmod.php:  Fixed bug where '5 random songs' wouldn't work with a
+  search term that returned only one result
+- display.php:  ignore files that aren't .m3u files when displaying playlists
+  dropdown
 - _playlist.php, playlist.php, playlistmod.php:  Added queue manipulation code
-  so you can now move songs up and down in the playlist.   Code from 
+  so you can now move songs up and down in the playlist.   Code from Jürgen Löb
+  back in 2012.   Lol, sorry I kinda lost interest in the project for 9 years.
+  Better late than never, right? :)
+- playlist.php, playlistmod.php: keep checkbox checked after form submit
+- _config.php:  default to mpg123 for playing mp3s, helps things play with
+  pulseaudio better
 
 0.3.4 (2012-04-02)
 - index.php, themes: added winampbig theme (larger fonts!)

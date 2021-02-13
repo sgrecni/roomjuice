@@ -89,6 +89,12 @@ function barf($input) {
 	exit();
 }
 
+if(!function_exists('logger')) {
+    function logger($input) {
+        echo "$input\n";
+    }
+}
+
 /*
  * Feed it a number of bytes, it gives you back a human readable size
  */
@@ -119,7 +125,7 @@ function notvalidfd($input) {
 
 	// check to make sure the file is in one of the configured directories
 	$valid = 0;
-	$tok = strtok($GLOBALS['MP3DIRS'], ';');
+	$tok = strtok($GLOBALS['MP3DIRS'] .';sounds/', ';');
 	while($tok) {
 		if(substr($input, 0, strlen($tok)) == $tok) {
 			// access granted, file/dir is in the configged dirs

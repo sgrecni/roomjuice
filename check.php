@@ -176,7 +176,7 @@ if(check_installed(trim(`which locate`), 'locate')) {
 
 // loop through all configured players, making sure they exist
 reset($MUSIC);
-$c = '';
+$c = 0;
 while(list($f,$t) = each($MUSIC)) {
 	$c += check_installed($t->player);
 	if(isset($t->info) && $t->info) $c += check_installed($t->info);

@@ -10,12 +10,13 @@ function veto() {
 	$pl->read();
 
 	if($pl->data[0]->file != $GLOBALS['VETOWAV']
-	&& $pl->data[1]->file != $GLOBALS['VETOWAV']) {
-        $o = new stdClass();
-        $o->time = 4;
-		$o->name = 'Veto in progress...';
-		$o->file = $GLOBALS['VETOWAV'];
-		$pl->data[0] = $o;
+	&& isset($pl->data[1]) && $pl->data[1]->file != $GLOBALS['VETOWAV']) {
+        $obj = new stdClass();
+        $obj->time = 4;
+		$obj->name = 'Veto in progress...';
+		$obj->file = $GLOBALS['VETOWAV'];
+        $obj->num = gensongnum(); 
+		$pl->data[0] = $obj;
 		$pl->dirty = TRUE;
 		$pl->write('pad');
 	}
@@ -55,7 +56,9 @@ function play() {
 function stop() {
 	$pr = new prefs();
 	killall($GLOBALS['PHP'] .' -q queue.php');
-	killall($GLOBALS['MUSIC'][$pr->getval('songtype')]->player, 9);
+    if(isset($GLOBALS['MUSIC'][$pr->getval('songtype')])) {
+    	killall($GLOBALS['MUSIC'][$pr->getval('songtype')]->player, 9);
+    }
 	$pr->clear();
 	$pr->write();
 	return TRUE;
@@ -147,6 +150,7 @@ function randomize() {
 }
 
 function killall($match, $signal = 15) {
+	$killed = 0;
 	if($match=='') return 'no pattern specified';
 	$match = trim(str_replace('>/dev/null', '', $match));
 	$match = escapeshellarg($match);

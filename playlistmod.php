@@ -48,13 +48,14 @@ if($append && $playlist && $access['root']) {
 	$pl->read();
 
 	include_once('_search.php');
+    $err = '';
 	if($words) {
 		song_search($words);
 	} else {
 		if($t = notvalidfd($appenddir)) barf($t);
-		song_dir($appenddir);
+		$err = song_dir($appenddir);
 	}
-	if(count($files) <= 1) {
+	if(count($files) < 1) {
 		barf($err);
 	}
 
@@ -63,7 +64,7 @@ if($append && $playlist && $access['root']) {
 	mt_srand((double)microtime()*1000000);
 	$size = count($files);
 	$left = $size;
-	for($i = 1; $i <= $songs && $left > 0; ) {
+	for($i = 0; $i <= $songs && $left > 0; ) {
 		$random = mt_rand() % $size;
 		if($files[$random] != '') {
 			if($pl->add($files[$random], 1)) {
@@ -174,7 +175,8 @@ if($append && $playlist && $access['root']) {
 if(isHandheld()) {
     header('Location: '. $WEBURL .'handheld.php');
 } else {
-    header('Location: '. $WEBURL .'playlist.php');
+//    header('Location: '. $WEBURL .'playlist.php');
+    include('playlist.php');
 }
 /* this is a hack to make netscape 4.* work, since it seems to be ignoring
  * header redirects after form posts */

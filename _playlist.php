@@ -257,11 +257,17 @@ class playlist {
             error_log("Cannot open file: $this->filename");
             return FALSE;
         }
-        if($opt=='pad') fputs($fp, " ");
+        //if($opt=='pad') fputs($fp, " ");
+        if($opt=='pad') {
+            fputs($fp, "#SONGNUM:1\n");
+            fputs($fp, "#EXTINF:0,XXX\n");
+            fputs($fp, "sounds/empty.mp3\n");
+        }
         foreach($this->data as $v) {
             if(isset($v->num)) {
                 fputs($fp, "#SONGNUM:$v->num\n");
             }
+            //logger('file='. $v->file .' time='. $v->time . ' name='. $v->name);
             if(isset($v->time) && isset($v->name)) {
                 fputs($fp, '#EXTINF:'. $v->time .','. $v->name ."\n");
             }
@@ -337,9 +343,10 @@ class playlist {
 //}
 
 function gensongnum() {
-   list($usec, $sec) = explode(" ", microtime());
-   return ((float)$usec + (float)$sec);
-} 
-
+    //list($usec, $sec) = explode(" ", microtime());
+    //return ((float)$usec + (float)$sec);
+    $t = microtime(true);
+    return str_replace('.', '_', $t);
+}
 
 ?>

@@ -18,6 +18,10 @@ if($_SERVER['HTTP_REFERER']
 
 $prefs = new prefs(FALSE);
 
+/* fetch the playlist */
+$pl = new playlist();
+$pl->read();
+
 ?>
 <html>
 <head>
@@ -38,7 +42,8 @@ if($access['remove']) {
 <table border=0 cellspacing=0 cellpadding=2>
 <tr>
 	<td>
-		<input type="submit" name="remove" value="remove">
+        <?php if(count($pl->data) > 1) { ?>
+		<input type="submit" name="remove" value="del">
         <?php if($prefs->getval('playtime')) { ?>
         <input type="submit" name="first" value="next">
         <?php } else { ?>
@@ -46,15 +51,16 @@ if($access['remove']) {
         <?php } ?>
         <input type="submit" name="up" value="up">
         <input type="submit" name="down" value="down">
-        <input type="submit" name="last" value="last">
+        <!--input type="submit" name="last" value="last"-->
 
 	    <script><!--
         var checkflag = true;
         document.write('<input type="button" value="check all" onClick="this.value=checkAll(document.aform)">');
 	    //--></script>
+        <?php } ?>
 <?php
 	if($access['root']) {
-		echo "\t[<a href=\"playlistcontrols.php\">playlists</a>]";
+		echo "\t[<a href=\"playlistcontrols.php\">playlists</a>]<br><br>";
 	}
 ?>
 	</td>
@@ -66,14 +72,11 @@ if($access['remove']) {
 
 echo "<table cellspacing=0 cellpadding=2 border=0>\n";
 
-// display the current playlist
-$pl = new playlist();
-$pl->read();
 $timeout = 60000;
 $secsleft = 0;
 
-if($prefs->getval('playtime') && ($o = $pl->data[0])) {
-    if($o->time) {
+if($prefs->getval('playtime') && isset($pl->data[0]) && ($o = $pl->data[0])) {
+    if(isset($o->time)) {
         if($prefs->getval('pausetime')) {
             $secsleft = ($o->time - ($prefs->getval('pausetime') - $prefs->getval('playtime')));
         } else {
@@ -119,9 +122,14 @@ while(list($num, $o) = @each($pl->data)) {
 	echo "<tr";
     if(!($i % 2)) echo ' class="altertablebgcolor"';
     echo ">\n\t<td valign=top>";
-	if($i>0 && $access['remove']) {
+    if($i>0 && $access['remove']) {
+        $checked = '';
+
+        if(isset($_POST['CHECK_'. $o->num])) {
+           $checked = ' CHECKED'; 
+        }
 //		echo "<input type=\"checkbox\" name=\"CHECK_$num\" value=\"$o->num,$o->file\">";
-		echo "<input type=\"checkbox\" name=\"CHECK_$num\" value=\",$o->file\">";
+    	echo "<input type=\"checkbox\" name=\"CHECK_$o->num\" value=\"$o->num,$o->file\" $checked>";
     }	
     echo "</td>\n\t<td valign=top>";
 	if($o->time > 0) {

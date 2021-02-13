@@ -133,6 +133,7 @@ $dp = @dir($dir);
 while($t = $dp->read()) {
 	if($t[0]=='.' || $t[0] == '_') continue;
 	if(is_file("$dir/$t")) {
+        if(substr($t, -4) != '.m3u') continue;
 		$t = str_replace('.m3u', '', $t);
 		echo "\t";
 		echo 'document.write("\t<option value=\"'. $t .'\">'. $t .'\n")';
@@ -142,9 +143,9 @@ while($t = $dp->read()) {
 ?>
 	document.write("</select>\n");
 	//--></script>
-	<script type="text/html">
+	<!--script type="text/html">
 	Hello
-	</script>
+	</script-->
 	</td>
 
 	<td>
