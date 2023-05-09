@@ -70,7 +70,7 @@ if(check_installed($PHP, 'php-cgi')) {
 $confdirs = explode(';', $GLOBALS['MP3DIRS']);
 echo "<p>\n\nchecking \$MP3DIRS variable...";
 $err=0;
-while(list(,$dir) = each($confdirs)) {
+foreach($confdirs as $dir) {
 	if(substr($dir, -1, 1) != '/') {
 		echo "<span class=bad>FAILED</span> All directories set in \$MP3DIRS must end with a '/'.";
 		$err=1;
@@ -175,9 +175,8 @@ if(check_installed(trim(`which locate`), 'locate')) {
 }
 
 // loop through all configured players, making sure they exist
-reset($MUSIC);
 $c = 0;
-while(list($f,$t) = each($MUSIC)) {
+foreach($MUSIC as $f => $t) {
 	$c += check_installed($t->player);
 	if(isset($t->info) && $t->info) $c += check_installed($t->info);
 }

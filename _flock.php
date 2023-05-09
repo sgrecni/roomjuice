@@ -5,6 +5,7 @@
  * if file DNE, try to create it
  */
 function flopen($file, $mode) {
+    if(!$file) return false;
 	$fp = fopen($file, $mode);
 	if(!$fp) {
 //		echo "error accessing $file, creating it and trying again\n";

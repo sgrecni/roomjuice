@@ -74,7 +74,7 @@ if($pr->getval('playtime') && ($o = $pl->data[0])) {
 
 
 $i=0; $total=0;
-while(list($num, $o) = @each($pl->data)) {
+foreach($pl->data as $num => $o) {
 	if($o->file=='' || $o->file=="\n") continue;
 
 	echo "<tr";

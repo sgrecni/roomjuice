@@ -1,5 +1,18 @@
 <?php
 
+class Song {
+    var $album;
+    var $artist;
+    var $bitrate;
+    var $comment;
+    var $genre;
+    var $time;
+    var $title;
+    var $track;
+    var $samplerate;
+    var $mod;
+}
+
 /* give it a filename, it returns a playlist object */
 function songinfo($file, $full=false) {
 	if(preg_match('/\.mod|\.s3m|\.it|\.xm|\.far|\.mtm|\.669$/i', $file)) {
@@ -11,9 +24,9 @@ function songinfo($file, $full=false) {
         }
 
         if(count($output) <= 1) { /* fall back on old method if taginfo isn't installed */
-            if(preg_match('/\.ogg$/i', $file)) {
+            if(isset($GLOBALS['OGGINFO']) && preg_match('/\.ogg$/i', $file)) {
                 exec($GLOBALS['OGGINFO'] .' '. escapeshellarg($file), $output);
-            } else if(preg_match('/\.mp3|\.mp2$/i', $file)) {
+            } else if(isset($GLOBALS['MP3INFO']) && preg_match('/\.mp3|\.mp2$/i', $file)) {
                 exec($GLOBALS['MP3INFO'] .
                 ' -p "ALBUM=%l\nTRACK=%n\nARTIST=%a\nTITLE=%t\nLENGTH=%S\nBITRATE=%r\nSAMPLERATE=%Q\n" '.
                  escapeshellarg($file), $output);
@@ -43,7 +56,7 @@ function songinfo($file, $full=false) {
 
 
 function songinfo_parsemod($output, $full) {
-    while(list(,$t) = @each($output)) {
+    foreach($output as $t) {
         if(preg_match('/^Estimated time : ([min0-9\.]+)s$/', $t, $r)) {
             $o->time = time2secs(str_replace('min', ':', $r[1]));
         }
@@ -57,8 +70,8 @@ function songinfo_parsemod($output, $full) {
 
 
 function songinfo_parse($output) {
-    $o = new stdClass();
-    while(list(,$t) = @each($output)) {
+    $o = new Song();
+    foreach($output as $t) {
         $t = trim($t);
         if(preg_match('/Playback length: ([0-9:m\.]+)s/', $t, $r)) {
             $o->time = round($r[1]);

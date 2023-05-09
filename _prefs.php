@@ -9,7 +9,7 @@ class prefs {
 	var $data;
 	var $dirty;
 
-	function prefs($lock = TRUE, $file = '_state') {
+	function __construct($lock = TRUE, $file = '_state') {
 		$this->file = $file;
 		$this->lock = $lock;
 		$this->dirty = FALSE;

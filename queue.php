@@ -34,8 +34,7 @@ do {
             $pr->setval('songtype');
             $pr->setval('pausetime');
 
-            reset($MUSIC);
-            while(list($t) = each($MUSIC)) {
+            foreach(array_keys($MUSIC) as $t) {
                 if($MUSIC[$t]->filetypes && preg_match($MUSIC[$t]->filetypes, $song)) {
                     $pr->setval('songtype', $t);
                     break;
@@ -50,9 +49,8 @@ do {
 
             if($pr->getval('songtype')) {
                 logger('executing '.  $MUSIC[$pr->getval('songtype')]->player .' '. escapeshellarg($song));
-                exec($MUSIC[$pr->getval('songtype')]->player .' '. escapeshellarg($song) .' 2>&1 1>/dev/null');
-                //logger('exec'. $MUSIC[$pr->getval('songtype')]->player .' '. escapeshellarg($song) .' 2>&1 1>'. $PLAYLISTDIR .'/queue_exec.log');
-                //exec($MUSIC[$pr->getval('songtype')]->player .' '. escapeshellarg($song) .' 2>&1 1>'. $PLAYLISTDIR .'/queue_exec.log');
+                //exec($MUSIC[$pr->getval('songtype')]->player .' '. escapeshellarg($song) .' 2>&1 1>/dev/null');
+                exec($MUSIC[$pr->getval('songtype')]->player .' '. escapeshellarg($song) .' 2>&1 1>'. $PLAYLISTDIR .'/queue_exec.log');
             } else {
                 logger($song .': cannot find songtype, ignoring this file and continuing on with next file');
             }

@@ -10,7 +10,7 @@ function veto() {
 	$pl->read();
 
 	if($pl->data[0]->file != $GLOBALS['VETOWAV']
-	&& isset($pl->data[1]) && $pl->data[1]->file != $GLOBALS['VETOWAV']) {
+	&& (!isset($pl->data[1]) || $pl->data[1]->file != $GLOBALS['VETOWAV'])) {
         $obj = new stdClass();
         $obj->time = 4;
 		$obj->name = 'Veto in progress...';
@@ -157,7 +157,7 @@ function killall($match, $signal = 15) {
 //    echo "$match, $signal\n";
 	exec("ps x|grep $match|grep -v grep|awk '{print $1}'", $output, $ret);
 	if($ret) return 'you need ps, grep, and awk installed for this to work';
-	while(list(,$t) = each($output)) {
+	foreach($output as $t) {
 		if(preg_match('/^([0-9]+)/', $t, $r)) {
 			//system("kill -$signal ". $r[1], $k);
 			if(!posix_kill($r[1], $signal)) {echo "posix_kill() failed"; exit();}

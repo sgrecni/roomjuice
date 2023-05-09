@@ -61,12 +61,12 @@ if($append && $playlist && $access['root']) {
 
 	/* only pick $songs songs from $output
      * keep track of how many songs left so we don't loop forever :) */
-	mt_srand((double)microtime()*1000000);
 	$size = count($files);
 	$left = $size;
+    $random = 0;
 	for($i = 0; $i <= $songs && $left > 0; ) {
 		$random = mt_rand() % $size;
-		if($files[$random] != '') {
+		if(isset($files[$random]) && $files[$random] != '') {
 			if($pl->add($files[$random], 1)) {
 				$i++;
 			}
@@ -85,12 +85,12 @@ if($append && $playlist && $access['root']) {
 		song_search($words);
 		
 		// sort the songs
-		@reset($files); @natcasesort($files);
+		@natcasesort($files);
 	} else {
 		song_dir($appenddir);
 	}
 	
-	while(list(,$t) = @each($files)) {
+    foreach($files as $t) {
 		$pl->add($t);
 	}
 	$pl->write();
@@ -103,7 +103,7 @@ if($append && $playlist && $access['root']) {
 
 	$toremove = array();
 	// loop through all checkboxes
-	while(list($k, $v) = @each($_POST)) {
+    foreach($_POST as $k => $v) {
 		if(preg_match('/^CHECK_/', $k)) {
 			$toremove[] = stripslashes($v);
 		}
@@ -118,7 +118,7 @@ if($append && $playlist && $access['root']) {
 
 	$tomove = array();
 	// loop through all checkboxes
-	while(list($k, $v) = @each($_POST)) {
+    foreach($_POST as $k => $v) {
 		if(preg_match('/^CHECK_/', $k)) {
 			$tomove[] = stripslashes($v);
 		}
@@ -133,7 +133,7 @@ if($append && $playlist && $access['root']) {
 
 	$tomove = array();
 	// loop through all checkboxes
-	while(list($k, $v) = @each($_POST)) {
+    foreach($_POST as $k => $v) {
 		if(preg_match('/^CHECK_/', $k)) {
 			$tomove[] = stripslashes($v);
 		}
@@ -148,7 +148,7 @@ if($append && $playlist && $access['root']) {
 
     $tomove = array();
 	// loop through all checkboxes
-	while(list($k, $v) = @each($_POST)) {
+    foreach($_POST as $k => $v) {
 		if(preg_match('/^CHECK_/', $k)) {
 			$tomove[] = stripslashes($v);
 		}
@@ -163,7 +163,7 @@ if($append && $playlist && $access['root']) {
 
 	$tomove = array();
 	// loop through all checkboxes
-	while(list($k, $v) = @each($_POST)) {
+    foreach($_POST as $k => $v) {
 		if(preg_match('/^CHECK_/', $k)) {
 			$tomove[] = stripslashes($v);
 		}

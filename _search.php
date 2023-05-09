@@ -8,14 +8,15 @@
  *   and is one of the sanctioned file types
  */
 function search_check(&$output) {
-	global $files, $dirs;
+    global $files, $dirs;
+    $dirs = array();
+    $files = array();
     $mode = ''; // not sure what this was supposed to be for...
 
 	//make sure file/dir is in one of the conf dirs
 	$confdirs = explode(';',$GLOBALS['MP3DIRS']);
-	while(list(,$t) = each($output)) {
-		reset($confdirs);
-		while(list(,$s) = each($confdirs)) {
+    foreach($output as $t) {
+        foreach($confdirs as $s) {
 			if(substr($t, 0, strlen($s)) == $s) {
 				if(is_dir($t)) {
 					// add the directory
@@ -43,7 +44,7 @@ function search_check(&$output) {
 function song_search($words) {
 	global $files, $dirs;
 	$files = array();
-    $dirs=array();
+    $dirs = array();
     $first = '';
     $add = '';
     $err = '';
@@ -52,7 +53,7 @@ function song_search($words) {
 	// stripslashes, trim, and replace whitespace with a single space (to explode later)
 	$words = preg_replace('/\s+/', ' ',trim(stripslashes($words)));
 	$wa = explode(' ', $words);
-	while(list(,$t) = each($wa)) {
+    foreach($wa as $t) {
 		if(preg_match('/^[\S]{2,}$/i', $t)) {
 			if(!$first) {
 				$first = $t;
@@ -88,12 +89,12 @@ function song_search($words) {
  * Purpose:  calls custom function rdir to find all the files in the given directory
  */
 function song_dir($dir) {
-	global $files, $dirs;
-	$files = array(); $dirs=array();
-	$count = 0;
+    $output = array();
 	
 	function rdir($appenddir, &$output) {
-		$dp = @dir($appenddir);
+		$dp = dir($appenddir);
+        $files = array();
+        $dirs = array();
 		while($t = $dp->read()) {
 			if($t != '.' && $t != '..') {
 				if(is_dir($appenddir . $t)) {
@@ -105,22 +106,23 @@ function song_dir($dir) {
 		}
 		$dp->close();
 
-		@reset($dirs);
-		@natcasesort($dirs);
-		@reset($files); 
-		@natcasesort($files);
+	    natcasesort($dirs);
+		natcasesort($files);
 
-		while(list(,$t) = @each($dirs)) {
-			rdir($appenddir . $t .'/', $output);
-		}
-		while(list(,$t) = @each($files)) {
+        foreach($dirs as $t) {
+            rdir($appenddir . $t .'/', $output);
+        }
+        foreach($files as $t) {
 			$output[] .= $appenddir . $t;
 		}
 	}
 
 	//exec("locate -i -r ^". escapeshellarg($dir), $output, $returnval);
 	rdir($dir, $output);
-	
+
+	global $files, $dirs;
+    $files = array();
+    $dirs = array();
 	return search_check($output);
 }
 

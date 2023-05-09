@@ -41,14 +41,14 @@ include_once('defaultheader.php');
 if(isset($search)) echo $search;
 
 
-@reset($dirs);
-@reset($files);
-@natcasesort($dirs);
-@natcasesort($files);
+reset($dirs);
+reset($files);
+natcasesort($dirs);
+natcasesort($files);
 
 /* Display first image in directory, don't show if it's search results */
 if($DISP_IMAGE==1 && !$words) {
-	while(list(,$t) = @each($files)) {
+    foreach($files as $t) {
 		if(preg_match($GFXTYPES, $t)) {
 			list($w,$h) = getimagesize($dir . $t);
 			
@@ -84,14 +84,14 @@ if($DISP_IMAGE==1 && !$words) {
 		}
 	}
 }
-@reset($files);
+reset($files);
 
 echo "<table cellspacing=0 cellpadding=1 border=0>\n";
 
 /*
  *  list all directories 
  */
-while(list(,$t) = @each($dirs)) {
+foreach($dirs as $t) {
 	if($dir=='') {
 		$link_target = rawurlencode($t);
 	} else {
@@ -115,7 +115,7 @@ while(list(,$t) = @each($dirs)) {
 
 if(isset($ICECASTSTATSLOG) && $dir=='' && !$words) {
 	echo "<p>\n";
-	if($fp = @fopen($ICECASTSTATSLOG, 'r')) {
+	if($fp = fopen($ICECASTSTATSLOG, 'r')) {
 		while(!feof($fp)) {
 			$buff = fgets($fp, 1024);
 			if(preg_match('/^Client [0-9]+(.+)\. Type: listener/', $buff, $regs)) {
@@ -140,8 +140,8 @@ if(isset($ICECASTSTATSLOG) && $dir=='' && !$words) {
 /*
  * list all files
  */
-while(list(,$t) = @each($files)) {
-	$s = @stat($dir. $t);
+foreach($files as $t) {
+	$s = stat($dir. $t);
 
 	if(preg_match($FILETYPES, $t)) {
 		$link_target = rawurlencode($dir . $t);

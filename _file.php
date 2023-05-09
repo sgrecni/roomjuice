@@ -71,7 +71,7 @@ function playlist_write($mode, $filename, $filedata=array(), $song='') {
 		if($filedata[$i]=='skip') continue;
 		if($mode=='remove' && $i != 0) {
 			@reset($song);
-			while(list($j) = @each($song)) {
+            foreach(array_keys($song) as $j) {
 				if(!strcmp($filedata[$i]->file,$song[$j])) {
 					// found a song to remove, so skip writing this entry
 					unset($song[$j]);

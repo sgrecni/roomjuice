@@ -68,7 +68,7 @@ if(!isset($hideheader)) {
 
 		$a = explode('/', $masked);
         $tr = '';
-		while(list(,$t) = each($a)) {
+        foreach($a as $t) {
 			if($t == '') continue;
 			$mask .= $t .'/';
 			$tr .= '<a href="browse.php?dir='. rawurlencode($mask) .'">'.

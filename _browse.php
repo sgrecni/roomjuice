@@ -1,11 +1,16 @@
 <?php
+
+$files = array();
+$dirs = array();
+
 /*
  * Input $dir
  * Output: sets global arrays:  $files[], $dirs[]
  */
 function directory_browse(&$dir) {
-	global $files, $dirs;
-	$files = array(); $dirs = array();
+    global $files, $dirs;
+    $files = array();
+    $dirs = array();
 
 	/* check if $dir is a valid configured directory */
 	if($t = notvalidfd($dir)) {
@@ -21,7 +26,7 @@ function directory_browse(&$dir) {
 	if($dir=='') {  // show list of config dirs, and no files
 		$confdirs = explode(';', $GLOBALS['MP3DIRS']);
 		reset($confdirs);
-		while(list(,$t) = each($confdirs)) {
+        foreach($confdirs as $t) {
 			$dirs[]=$t;
 		}
 	} else {

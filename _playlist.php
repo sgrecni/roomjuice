@@ -9,8 +9,8 @@ class playlist {
     var $playlistmtime;
     var $nextsong;
     var $dirty;
-    
-    function playlist($playlist='') {
+ 
+    function __construct($playlist='') {
         $this->setplaylist($playlist);
         settype($this->data, 'array');
         $this->dirty = TRUE;
@@ -18,6 +18,7 @@ class playlist {
     
     function setplaylist($playlist='') {
         if($playlist) {
+            error_log("playlistdir=$playlist");
             $this->filename = $GLOBALS['PLAYLISTDIR'] . $playlist;
         } else {
             $this->filename = $GLOBALS['PLAYLIST'];
@@ -28,7 +29,7 @@ class playlist {
         unset($this->data);
         settype($this->data, 'array');
 
-        $fp = @flopen($this->filename, 'r');
+        $fp = flopen($this->filename, 'r');
         if(!$fp) {
             error_log("Cannot open file: $this->filename");
             return;
@@ -112,8 +113,7 @@ class playlist {
         }
 
         if($unique) {
-            reset($this->data);
-            while(list($k) = each($this->data)) {
+            foreach(array_keys($this->data) as $k) {
                 if($this->data[$k]->file == $file) {
                     return;
                 }

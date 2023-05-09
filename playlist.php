@@ -114,7 +114,7 @@ if($prefs->getval('playtime') && isset($pl->data[0]) && ($o = $pl->data[0])) {
 }
 
 $i=0; $total=0; $secsleft=0;
-while(list($num, $o) = @each($pl->data)) {
+foreach($pl->data as $num => $o) {
 	if($o->file=='' || $o->file=="\n") continue;
     if(!isset($o->time)) $o->time = 0;
     if(!isset($o->name)) $o->name = $o->file;

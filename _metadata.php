@@ -10,7 +10,7 @@ function metadata($file, $full) {
 	$obj->file = $file;
 	if(preg_match('/\.ogg$/i', $file)) {
 		exec($GLOBALS['OGGINFO'] .' '. escapeshellarg($file), $output);
-		while(list(,$t) = @each($output)) {
+        foreach($output as $t) {
 			if(!$artist && preg_match('/artist=(.+)/i', $t, $r)) {
 				$artist = $r[1];
 			} else if(!$title && preg_match('/title=(.+)/i', $t, $r)) {
@@ -25,15 +25,15 @@ function metadata($file, $full) {
 		}
 	} else if(preg_match('/\.mp3|\.mp2$/i', $file)) {
 		exec($GLOBALS['MP3INFO'] .' '. escapeshellarg($file), $output);
-		while(list(,$t) = @each($output)) {
-		}
+//        foreach($output as $t) {
+//		}
 		
 		$artist = $output[0];
 		$title = $output[1];
 		$obj->time = $output[2];
 	} else if(preg_match('/\.mod|\.s3m|\.it|\.xm|\.far|\.mtm|\.669$/i', $file)) {
 		exec($GLOBALS['MODINFO'] .' '. escapeshellarg($file), $output);
-		while(list(,$t) = @each($output)) {
+        foreach($output as $t) {
 			if(preg_match('/^Estimated time : ([min0-9\.]+)s$/', $t, $r)) {
 				$obj->time = time2secs(str_replace('min', ':', $r[1]));
 				break;

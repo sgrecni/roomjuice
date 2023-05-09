@@ -72,8 +72,8 @@ $MUSIC['mp3'] = new stdClass;
 //$MUSIC['mp3']->player='/usr/bin/mpg123 -q -a /dev/dsp';
 //$MUSIC['mp3']->player='/usr/bin/madplay -q -o /dev/dsp';
 //$MUSIC['mp3']->player='/usr/bin/madplay';
-//$MUSIC['mp3']->player='/usr/bin/mpg123 -q';
-$MUSIC['mp3']->player='/usr/bin/mpg123 -q -o pulse'; /* pulse output seems to fix the problem the beginning of songs being cut off */
+$MUSIC['mp3']->player='/usr/bin/mpg123 -q';
+//$MUSIC['mp3']->player='/usr/bin/mpg123 -o pulse'; /* pulse output seems to fix the problem the beginning of songs being cut off */
 $MUSIC['mp3']->filetypes='\.mp3|\.mp2';
 
 $MUSIC['m3u'] = new stdClass;

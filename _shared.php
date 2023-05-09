@@ -5,7 +5,9 @@ require_once('_config.php');
 // required for RedHat (and other dists?)
 putenv('HOME=/tmp');
 
-$WEBURL = 'http://'. $_SERVER['HTTP_HOST'] .$INSTALLDIR;
+$request_scheme = $_SERVER['REQUEST_SCHEME'];
+if(!$request_scheme) $request_scheme = 'https';
+$WEBURL = $request_scheme .'://'. $_SERVER['HTTP_HOST'] .$INSTALLDIR;
 $PLAYLIST = $PLAYLISTDIR . 'playlist.m3u';
 $PLAYTIME = $PLAYLISTDIR . 'playtime';
 
@@ -23,7 +25,7 @@ $access = array();
 $FILETYPES = '';
 
 reset($MUSIC);
-while(list($key) = each($MUSIC)) {
+foreach(array_keys($MUSIC) as $key) {
 	$FILETYPES .= $MUSIC[$key]->filetypes.'|';
 	$MUSIC[$key]->filetypes='/('. $MUSIC[$key]->filetypes .')$/i';
 }
